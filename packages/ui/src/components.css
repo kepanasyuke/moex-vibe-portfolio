@@ -133,7 +133,6 @@
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-1);
   min-width: 0;
   overflow: hidden;
 }
@@ -368,7 +367,6 @@
 .tabs__item--active {
   background: var(--paper);
   color: var(--ink);
-  box-shadow: var(--shadow-1);
 }
 
 .spinner {
@@ -482,8 +480,8 @@
 
 .modal {
   background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-2);
   width: 100%;
   max-width: 520px;
   max-height: 90vh;
@@ -531,7 +529,6 @@
   color: #fff;
   padding: 12px 16px;
   border-radius: var(--radius);
-  box-shadow: var(--shadow-2);
   font-size: 14px;
   min-width: 260px;
   border-left: 4px solid var(--moex-red);

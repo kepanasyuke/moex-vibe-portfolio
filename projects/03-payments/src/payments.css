@@ -117,7 +117,6 @@
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-2);
   padding: 28px;
   display: grid;
   gap: 16px;
