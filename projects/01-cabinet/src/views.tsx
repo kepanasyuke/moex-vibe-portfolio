@@ -398,6 +398,12 @@ const Profile = ({
   );
 };
 
+const periodValues = (history: { value: number }[], days: string) =>
+  history.map((point) => point.value).slice(days === "7" ? -7 : 0);
+
+const spreadLabel = (values: number[]) =>
+  `${formatMoney(Math.min(...values))} — ${formatMoney(Math.max(...values))}`;
+
 const Overview = ({ token }: { token: string }) => {
   const view = useOverviewView(token);
 
@@ -425,30 +431,24 @@ const Overview = ({ token }: { token: string }) => {
               </div>
             }
           />
-          <div className="grid-4">
-            <Card>
+          <Card flush>
+            <div className="stats">
               <Stat label="Капитал" value={formatMoney(data.equity)} hint="Бумаги и свободные средства" />
-            </Card>
-            <Card>
               <Stat label="Свободные средства" value={formatMoney(data.cash)} hint="Доступны для сделок" />
-            </Card>
-            <Card>
               <Stat
                 label="Прибыль"
                 value={formatMoney(data.totals.pnl)}
                 tone={data.totals.pnl >= 0 ? "up" : "down"}
                 hint={formatSignedPercent(data.totals.pnlPct)}
               />
-            </Card>
-            <Card>
               <Stat
                 label="За день"
                 value={formatMoney(data.totals.dayPnl)}
                 tone={data.totals.dayPnl >= 0 ? "up" : "down"}
                 hint="К закрытию прошлой сессии"
               />
-            </Card>
-          </div>
+            </div>
+          </Card>
           <div className="grid-2" style={{ marginTop: 20 }}>
             <Card
               title="Динамика стоимости"
@@ -457,16 +457,14 @@ const Overview = ({ token }: { token: string }) => {
               }
             >
               <Sparkline
-                points={data.history.slice(view.period.tab === "7" ? -7 : 0).map((point) => point.value)}
+                points={periodValues(data.history, view.period.tab)}
                 tone={data.totals.pnl >= 0 ? "up" : "down"}
-                height={150}
+                height={210}
                 label={`Динамика стоимости портфеля за ${view.period.tab} дней`}
               />
               <div className="row-between" style={{ marginTop: 12 }}>
-                <span className="muted">{view.period.tab} дней</span>
-                <span className="numeric">
-                  {formatMoney(data.history[0]?.value ?? 0)} → {formatMoney(data.totals.value)}
-                </span>
+                <span className="muted">Диапазон за {view.period.tab} дней</span>
+                <span className="numeric">{spreadLabel(periodValues(data.history, view.period.tab))}</span>
               </div>
             </Card>
             <Card title="Структура портфеля">
@@ -474,6 +472,12 @@ const Overview = ({ token }: { token: string }) => {
                 {data.allocation.map((item) => (
                   <ProgressBar key={item.ticker} label={item.ticker} value={item.share} suffix={formatPercent(item.share)} />
                 ))}
+              </div>
+              <div className="row-between bar__total">
+                <span className="muted">Итого</span>
+                <span className="numeric">
+                  {formatMoney(data.allocation.reduce((sum, item) => sum + item.value, 0))}
+                </span>
               </div>
             </Card>
           </div>

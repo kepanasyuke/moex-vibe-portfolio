@@ -142,7 +142,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 20px;
+  padding: 13px 18px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -162,7 +162,7 @@
 }
 
 .card__body {
-  padding: 20px;
+  padding: 18px;
 }
 
 .card__body--flush {
@@ -170,9 +170,34 @@
 }
 
 .stat {
-  padding: 20px;
+  padding: 16px 20px;
   display: grid;
-  gap: 6px;
+  gap: 4px;
+  min-width: 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stats > * + * {
+  border-left: 1px solid var(--line);
+}
+
+@media (max-width: 900px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats > *:nth-child(3) {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .stats > *:nth-child(4) {
+    border-top: 1px solid var(--line);
+  }
 }
 
 .stat__label {
@@ -540,7 +565,7 @@
 
 .bars {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .bar {
@@ -554,8 +579,15 @@
   font-size: 13px;
 }
 
+.bar__total {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+
 .bar__track {
-  height: 8px;
+  height: 6px;
   background: var(--surface-2);
   border-radius: 2px;
   overflow: hidden;
