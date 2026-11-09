@@ -1,10 +1,13 @@
 import type { ReactNode } from "react";
 import { Button, Logo, cx } from "./components.tsx";
+import { Icon } from "./icons.tsx";
+import type { IconName } from "./icons.tsx";
 
 export interface NavItem {
   key: string;
   label: string;
   hint?: string;
+  icon?: IconName;
 }
 
 const initialsOf = (name: string): string =>
@@ -48,7 +51,7 @@ export const AppShell = ({
           <span className="shell__user-role">{user.role === "admin" ? "Администратор" : "Инвестор"}</span>
         </span>
       </div>
-      <Button variant="ghost" size="sm" onClick={onLogout}>
+      <Button variant="ghost" size="sm" onClick={onLogout} icon={<Icon name="logout" size={16} />}>
         Выйти
       </Button>
     </header>
@@ -62,7 +65,10 @@ export const AppShell = ({
             className={cx("shell__nav-item", item.key === active && "shell__nav-item--active")}
             onClick={() => onSelect(item.key)}
           >
-            <span>{item.label}</span>
+            <span className="shell__nav-main">
+              {item.icon && <Icon name={item.icon} size={17} />}
+              <span>{item.label}</span>
+            </span>
             {item.hint && <span className="shell__nav-hint">{item.hint}</span>}
           </button>
         ))}

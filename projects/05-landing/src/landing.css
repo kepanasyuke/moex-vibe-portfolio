@@ -7,7 +7,7 @@
     radial-gradient(900px 500px at 85% 0%, rgba(228, 0, 0, 0.28), transparent 60%),
     var(--black);
   color: #fff;
-  padding: 150px 0 0;
+  padding: 128px 0 0;
 }
 
 .landing__hero-inner {
@@ -68,7 +68,7 @@
 
 .landing__hero-year {
   font-size: 64px;
-  font-weight: 900;
+  font-weight: 600;
   color: #fff;
   line-height: 1;
   letter-spacing: -0.04em;

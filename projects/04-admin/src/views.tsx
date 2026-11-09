@@ -7,10 +7,11 @@ import {
   Badge,
   Button,
   Card,
+  Icon,
   Input,
   Logo,
   PageHeader,
-  Spinner,
+  Skeleton,
   Stat,
   Table,
   Tabs,
@@ -25,10 +26,10 @@ import type { Section } from "./hooks.ts";
 type ScreenState = ReturnType<typeof useSession>;
 
 const NAV: NavItem[] = [
-  { key: "overview", label: "Обзор" },
-  { key: "users", label: "Пользователи", hint: "Роли" },
-  { key: "broadcast", label: "Рассылка" },
-  { key: "audit", label: "Аудит" },
+  { key: "overview", label: "Обзор", icon: "gauge" },
+  { key: "users", label: "Пользователи", hint: "Роли", icon: "users" },
+  { key: "broadcast", label: "Рассылка", icon: "mail" },
+  { key: "audit", label: "Аудит", icon: "doc" },
 ];
 
 const AUDIENCE = [
@@ -98,7 +99,10 @@ const Overview = ({ data }: { data: ReturnType<typeof useAdminScreen>["data"] })
       </Card>
     </div>
     <div style={{ marginTop: 20 }}>
-      <Card title="Последние действия" flush>
+      <Card
+        title={<span className="card__title-inline"><Icon name="history" size={16} />Последние действия</span>}
+        flush
+      >
         <Table
           columns={[
             { key: "at", title: "Когда", render: (row: AuditEntry) => formatDateTime(row.at) },
@@ -231,7 +235,7 @@ const Broadcast = ({ data }: { data: ReturnType<typeof useAdminScreen>["data"] }
     <>
       <PageHeader eyebrow="Коммуникации" title="Рассылка" subtitle="Сообщение появится в кабинетах выбранной аудитории" />
       <div className="grid-2">
-        <Card title="Новое сообщение">
+        <Card title={<span className="card__title-inline"><Icon name="mail" size={16} />Новое сообщение</span>}>
           <form className="stack" onSubmit={form.submit}>
             <Input
               id="title"
@@ -256,7 +260,7 @@ const Broadcast = ({ data }: { data: ReturnType<typeof useAdminScreen>["data"] }
             <Button type="submit">Отправить</Button>
           </form>
         </Card>
-        <Card title="Как это работает">
+        <Card title={<span className="card__title-inline"><Icon name="info" size={16} />Как это работает</span>}>
           <ul className="admin-list">
             <li>Сообщение создаётся для каждого получателя отдельно.</li>
             <li>Инвесторы увидят его в разделе «Уведомления» кабинета.</li>
@@ -344,7 +348,11 @@ export const Root = () => {
 };
 
 export const Loading = () => (
-  <div className="admin-loading">
-    <Spinner />
+  <div className="container" style={{ padding: "28px 0" }}>
+    <div className="stack">
+      <Skeleton height={96} />
+      <Skeleton height={180} />
+      <Skeleton height={120} />
+    </div>
   </div>
 );

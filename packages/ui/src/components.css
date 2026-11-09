@@ -152,6 +152,16 @@
   font-weight: 600;
 }
 
+.card__title-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card__title-inline .icon {
+  color: var(--ink-faint);
+}
+
 .card__body {
   padding: 20px;
 }

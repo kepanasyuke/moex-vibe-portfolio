@@ -3,6 +3,8 @@ import {
   Badge,
   Button,
   Card,
+  Icon,
+  ICON_NAMES,
   Input,
   Logo,
   Modal,
@@ -157,6 +159,16 @@ const ComponentsShowcase = () => {
           <ProgressBar label="GAZP" value={42} suffix="42 %" />
           <ProgressBar label="SBER" value={28} suffix="28 %" alternate />
           <Sparkline points={[100, 104, 102, 108, 111, 109, 115, 118]} tone="up" height={90} />
+        </div>
+      </Card>
+      <Card title="Иконки" action={<span className="muted">{ICON_NAMES.length} шт · 24 px</span>}>
+        <div className="ds-icons">
+          {ICON_NAMES.map((name) => (
+            <div key={name} className="ds-icon">
+              <Icon name={name} size={20} />
+              <span className="ds-icon__name">{name}</span>
+            </div>
+          ))}
         </div>
       </Card>
     </div>

@@ -3,10 +3,11 @@ import { formatMoneyPrecise, formatQty, formatSignedPercent } from "@contracts";
 import {
   Button,
   Card,
+  Icon,
   Input,
   Logo,
   Segmented,
-  Spinner,
+  Skeleton,
   Stat,
   Table,
   Tabs,
@@ -81,7 +82,7 @@ const FiltersBar = ({
 );
 
 const QueryPreview = ({ state }: { state: FilterState }) => (
-  <Card title="Запрос GraphQL">
+  <Card title={<span className="card__title-inline"><Icon name="doc" size={16} />Запрос GraphQL</span>}>
     <pre className="gql-code">{INSTRUMENTS_QUERY.trim()}</pre>
     <div className="gql-vars">
       <span className="eyebrow">Переменные</span>
@@ -111,9 +112,15 @@ const GraphqlBody = ({
 }) => (
     <div className="gql">
       <header className="gql__top">
-        <Logo compact inverse />
-        <span className="gql__title">GraphQL-витрина</span>
-        <span className="gql__endpoint mono">POST /graphql</span>
+        <span className="gql__brand">
+          <Logo compact inverse />
+          <span className="gql__divider" />
+          <span className="gql__title">GraphQL-витрина</span>
+        </span>
+        <span className="gql__endpoint mono">
+          <Icon name="branch" size={13} />
+          POST /graphql
+        </span>
         <span className="grow" />
         <span className="gql__time mono">
           {meta.data ? new Date(meta.data.serverTime).toLocaleTimeString("ru-RU", { hour12: false }) : "—"}
@@ -145,8 +152,9 @@ const GraphqlBody = ({
             <div style={{ marginTop: 16 }}>
               <Card flush>
                 {view.feed.page.status === "loading" && !page ? (
-                  <div className="gql__loading">
-                    <Spinner />
+                  <div className="stack" style={{ padding: 16 }}>
+                    <Skeleton height={40} />
+                    <Skeleton height={220} />
                   </div>
                 ) : (
                   <Table
@@ -162,6 +170,7 @@ const GraphqlBody = ({
                     size="sm"
                     disabled={!view.filters.state.cursor}
                     onClick={() => view.filters.setCursor(null)}
+                    icon={<Icon name="chevronLeft" size={15} />}
                   >
                     В начало
                   </Button>
@@ -173,6 +182,7 @@ const GraphqlBody = ({
                     onClick={() => view.filters.setCursor(page?.pageInfo.endCursor ?? null)}
                   >
                     Дальше
+                    <Icon name="chevronRight" size={15} />
                   </Button>
                 </div>
               </Card>

@@ -127,6 +127,25 @@
   color: var(--ink-soft);
 }
 
+.shell__nav-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.shell__nav-item .icon {
+  color: var(--ink-faint);
+}
+
+.shell__nav-item:hover .icon {
+  color: var(--ink-soft);
+}
+
+.shell__nav-item--active .icon {
+  color: var(--moex-red);
+}
+
 .shell__nav-item:hover {
   background: var(--surface-2);
   color: var(--ink);

@@ -126,6 +126,11 @@ table {
   flex: 1;
 }
 
+.icon {
+  display: block;
+  flex: none;
+}
+
 .stack {
   display: grid;
   gap: 16px;

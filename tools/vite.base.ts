@@ -26,6 +26,10 @@ export const makeWebConfig = (options: {
           target: `http://127.0.0.1:${options.apiPort}`,
           changeOrigin: true,
         },
+        "/graphql": {
+          target: `http://127.0.0.1:${options.apiPort}`,
+          changeOrigin: true,
+        },
         "/ws": {
           target: `ws://127.0.0.1:${options.apiPort}`,
           ws: true,

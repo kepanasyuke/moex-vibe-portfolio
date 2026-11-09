@@ -1,6 +1,6 @@
 import type { Quote } from "@contracts";
 import { formatMoneyPrecise, formatQty, formatSignedPercent } from "@contracts";
-import { Badge, Logo, Sparkline, Spinner, cx, useClock } from "@ui";
+import { Icon, Logo, Sparkline, Spinner, cx, useClock } from "@ui";
 import { useOrderBook, useTerminal } from "./hooks.ts";
 import type { TapeEntry } from "./hooks.ts";
 
@@ -29,7 +29,10 @@ const InstrumentList = ({
   onSelect: (ticker: string) => void;
 }) => (
   <aside className="terminal__instruments">
-    <div className="terminal__panel-title">Инструменты</div>
+    <div className="terminal__panel-title">
+      <Icon name="activity" size={14} />
+      Инструменты
+    </div>
     <div className="terminal__instruments-list">
       {quotes.map((quote) => (
         <button
@@ -75,10 +78,14 @@ const QuotePanel = ({
             {quote.name} <span className="quote__ticker">{quote.ticker}</span>
           </h1>
         </div>
-        <div className="quote__price numeric">{formatMoneyPrecise(quote.price)}</div>
+        <div className="quote__price-block">
+          <div className="quote__price numeric">{formatMoneyPrecise(quote.price)}</div>
+          <span className={cx("quote__change numeric", quote.changePct >= 0 ? "text-up" : "text-down")}>
+            {formatSignedPercent(quote.changePct)} за сессию
+          </span>
+        </div>
       </div>
       <div className="quote__meta">
-        <Badge tone={quote.changePct >= 0 ? "green" : "down"}>{formatSignedPercent(quote.changePct)}</Badge>
         <span className="muted">закрытие {formatMoneyPrecise(quote.prevClose)}</span>
         <span className="muted">обновлено {timeOf(at)}</span>
       </div>
@@ -140,9 +147,16 @@ const OrderBookPanel = ({ ticker }: { ticker: string }) => {
 
   return (
     <section className="book">
-      <div className="terminal__panel-title">Стакан · {ticker}</div>
+      <div className="terminal__panel-title">
+        <Icon name="chart" size={14} />
+        Стакан · {ticker}
+      </div>
       {book ? (
         <div className="book__grid">
+          <div className="book__head">
+            <span>Цена</span>
+            <span>Объём</span>
+          </div>
           <BookSide levels={[...book.asks].reverse()} side="ask" max={maxQty(book.asks)} />
           <div className="book__spread numeric">
             спред {formatMoneyPrecise(Math.max(...book.asks.map((level) => level.price)) - Math.max(...book.bids.map((level) => level.price)))}
@@ -160,7 +174,10 @@ const OrderBookPanel = ({ ticker }: { ticker: string }) => {
 
 const Tape = ({ entries }: { entries: TapeEntry[] }) => (
   <aside className="tape">
-    <div className="terminal__panel-title">Лента сделок</div>
+    <div className="terminal__panel-title">
+      <Icon name="history" size={14} />
+      Лента сделок
+    </div>
     {entries.length === 0 && <p className="muted">Ожидание сделок…</p>}
     {[...entries].reverse().map((entry, index) => (
       <div key={`${entry.at}-${index}`} className="tape__row">
@@ -168,7 +185,9 @@ const Tape = ({ entries }: { entries: TapeEntry[] }) => (
         <span className={cx("numeric", entry.side === "buy" ? "text-up" : "text-down")}>
           {formatMoneyPrecise(entry.price)}
         </span>
-        <span className="muted">{entry.side === "buy" ? "B" : "S"}</span>
+        <span className={cx("tape__side", entry.side === "buy" ? "text-up" : "text-down")}>
+          {entry.side === "buy" ? "B" : "S"}
+        </span>
       </div>
     ))}
   </aside>
@@ -180,9 +199,12 @@ export const Terminal = () => {
   return (
     <div className="terminal">
       <header className="terminal__top">
-        <Logo compact inverse />
-        <span className="terminal__title">Терминал котировок</span>
-        <span className="terminal__hint">данные обновляются в реальном времени</span>
+        <span className="terminal__brand">
+          <Logo compact inverse />
+          <span className="terminal__divider" />
+          <span className="terminal__title">Терминал котировок</span>
+        </span>
+        <span className="terminal__hint">поток в реальном времени</span>
         <span className="grow" />
         <StatusBadge status={view.feed.status} />
       </header>

@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   EmptyState,
+  Icon,
   Input,
   Logo,
   Segmented,
@@ -143,7 +144,13 @@ const History = ({ filters, page }: { filters: ReturnType<typeof useWalletScreen
       />
     )}
     <div className="pay-history__pager">
-      <Button variant="ghost" size="sm" disabled={!filters.cursor} onClick={() => filters.setCursor(null)}>
+      <Button
+        variant="ghost"
+        size="sm"
+        disabled={!filters.cursor}
+        onClick={() => filters.setCursor(null)}
+        icon={<Icon name="chevronLeft" size={15} />}
+      >
         В начало
       </Button>
       <Button
@@ -153,13 +160,14 @@ const History = ({ filters, page }: { filters: ReturnType<typeof useWalletScreen
         onClick={() => filters.setCursor(page.data?.nextCursor ?? null)}
       >
         Дальше
+        <Icon name="chevronRight" size={15} />
       </Button>
     </div>
   </Card>
 );
 
 const PaymentForm = ({ form }: { form: ReturnType<typeof useWalletScreen>["form"] }) => (
-  <Card title="Новая операция">
+  <Card title={<span className="card__title-inline"><Icon name="card" size={16} />Новая операция</span>}>
     <form className="stack" onSubmit={form.submit}>
       <Segmented
         options={[
@@ -239,13 +247,13 @@ const BalancePanel = ({ balance, page }: { balance: ReturnType<typeof useWalletS
       />
       <div className="pay-summary">
         <div>
-          <span className="eyebrow">Пополнено</span>
+          <span className="pay-summary__label">Пополнено</span>
           <span className="numeric text-up">
             {formatMoney(settled.filter((payment) => payment.kind === "deposit").reduce((acc, payment) => acc + payment.amount, 0))}
           </span>
         </div>
         <div>
-          <span className="eyebrow">Выведено</span>
+          <span className="pay-summary__label">Выведено</span>
           <span className="numeric text-down">
             {formatMoney(settled.filter((payment) => payment.kind === "withdraw").reduce((acc, payment) => acc + payment.amount, 0))}
           </span>
@@ -261,11 +269,15 @@ const Wallet = ({ session, onLogout }: { session: Session; onLogout: () => void 
   return (
     <div className="pay-page">
       <header className="pay-top">
-        <Logo compact />
-        <span className="pay-top__title">Платежи</span>
+        <span className="pay-top__brand">
+          <Logo compact />
+          <span className="pay-top__divider" />
+          <span className="pay-top__title">Платежи</span>
+        </span>
+        <span className="pay-top__demo">демо-стенд</span>
         <span className="grow" />
-        <span className="muted">{session.user.name}</span>
-        <Button variant="ghost" size="sm" onClick={onLogout}>
+        <span className="pay-top__user">{session.user.name}</span>
+        <Button variant="ghost" size="sm" onClick={onLogout} icon={<Icon name="logout" size={16} />}>
           Выйти
         </Button>
       </header>

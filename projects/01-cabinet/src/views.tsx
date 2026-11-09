@@ -42,12 +42,12 @@ type Section = "overview" | "trading" | "positions" | "operations" | "notificati
 type SessionState = ReturnType<typeof useSession>;
 
 const NAV: NavItem[] = [
-  { key: "overview", label: "Обзор", hint: "Сводка" },
-  { key: "trading", label: "Торговля", hint: "Сделки" },
-  { key: "positions", label: "Портфель" },
-  { key: "operations", label: "Операции" },
-  { key: "notifications", label: "Уведомления" },
-  { key: "profile", label: "Профиль" },
+  { key: "overview", label: "Обзор", hint: "Сводка", icon: "gauge" },
+  { key: "trading", label: "Торговля", hint: "Сделки", icon: "exchange" },
+  { key: "positions", label: "Портфель", icon: "pie" },
+  { key: "operations", label: "Операции", icon: "history" },
+  { key: "notifications", label: "Уведомления", icon: "bell" },
+  { key: "profile", label: "Профиль", icon: "user" },
 ];
 
 const KIND_OPTIONS = [

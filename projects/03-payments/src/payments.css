@@ -132,3 +132,29 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.pay-summary__label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+
+.pay-note {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.pay-note .icon {
+  color: var(--ink-faint);
+  margin-top: 1px;
+}

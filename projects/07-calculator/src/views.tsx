@@ -1,6 +1,6 @@
 import type { Preset, Projection } from "./api.ts";
 import { formatMoney, formatPercent } from "@contracts";
-import { Button, Card, Input, Logo, Sparkline, Stat, Table, type Column } from "@ui";
+import { Button, Card, Icon, Input, Logo, Sparkline, Stat, Table, type Column } from "@ui";
 import type { ProjectionPoint } from "./api.ts";
 import { useCalcScreen } from "./hooks.ts";
 
@@ -73,8 +73,12 @@ export const CalcApp = () => {
   return (
     <div className="calc">
       <header className="calc__top">
-        <Logo compact />
-        <span className="calc__title">Калькулятор доходности</span>
+        <span className="calc__brand">
+          <Logo compact />
+          <span className="calc__divider" />
+          <span className="calc__title">Калькулятор доходности</span>
+        </span>
+        <span className="calc__demo">демо-стенд</span>
         <span className="grow" />
         <span className="muted">сложный процент · НДФЛ · комиссии</span>
       </header>
@@ -88,7 +92,7 @@ export const CalcApp = () => {
           </p>
         </div>
         <div className="calc__grid">
-          <Card title="Параметры">
+          <Card title={<span className="card__title-inline"><Icon name="settings" size={16} />Параметры</span>}>
             <form className="stack" onSubmit={screen.form.submit}>
               <Input
                 id="initial"
@@ -128,7 +132,7 @@ export const CalcApp = () => {
               </Button>
             </form>
           </Card>
-          <Card title="Результат">
+          <Card title={<span className="card__title-inline"><Icon name="percent" size={16} />Результат</span>}>
             {screen.result ? (
               <ResultPanel result={screen.result} />
             ) : (
