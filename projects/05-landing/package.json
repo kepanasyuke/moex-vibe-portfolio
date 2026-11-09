@@ -1,0 +1,11 @@
+{
+  "name": "@moex/landing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx server/index.ts",
+    "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "start": "tsx server/index.ts"
+  }
+}

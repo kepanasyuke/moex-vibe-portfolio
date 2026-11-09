@@ -1,0 +1,100 @@
+.login {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+}
+
+.login__aside {
+  background: var(--black);
+  color: #fff;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login__aside::after {
+  content: "";
+  position: absolute;
+  right: -80px;
+  bottom: -80px;
+  width: 280px;
+  height: 280px;
+  background: var(--moex-red);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 60%, 40% 60%, 40% 30%, 65% 30%, 65% 0);
+  opacity: 0.9;
+}
+
+.login__claim {
+  margin-top: auto;
+  max-width: 12ch;
+  color: #fff;
+}
+
+.login__mark {
+  color: var(--moex-red);
+}
+
+.login__note {
+  max-width: 42ch;
+  color: #a7a7a7;
+  font-size: 14px;
+}
+
+.login__panel {
+  display: grid;
+  place-items: center;
+  padding: 48px;
+  background: var(--surface);
+}
+
+.login__panel .card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login__demo {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+  display: grid;
+  gap: 8px;
+}
+
+.login__demo-link {
+  border: none;
+  background: var(--surface-2);
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.login__demo-link:hover {
+  background: var(--tint-2);
+  color: var(--moex-red-deep);
+}
+
+.center {
+  display: grid;
+  place-items: center;
+  padding: 60px 0;
+}
+
+@media (max-width: 900px) {
+  .login {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .login__aside {
+    min-height: 320px;
+    padding: 28px;
+  }
+
+  .login__panel {
+    padding: 28px 16px 48px;
+  }
+}

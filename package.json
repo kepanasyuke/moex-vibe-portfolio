@@ -1,0 +1,47 @@
+{
+  "name": "moex-vibe-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Портфолио из 8 full-stack проектов в стеке вакансии MOEX «Вайбкод-разработчик»",
+  "workspaces": [
+    "packages/*",
+    "projects/*"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "lint": "node node_modules/eslint/bin/eslint.js .",
+    "typecheck": "node node_modules/typescript/bin/tsc --noEmit -p tsconfig.packages.json && node node_modules/typescript/bin/tsc --noEmit -p tsconfig.projects.json",
+    "test": "node node_modules/vitest/vitest.mjs run",
+    "e2e": "node node_modules/@playwright/test/cli.js test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/ws": "^8.18.2",
+    "@vitejs/plugin-react": "^6.2.1",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.4.1",
+    "@fastify/static": "^10.1.10",
+    "fastify": "^5.12.8",
+    "graphql": "^17.1.0",
+    "graphql-yoga": "^6.0.1",
+    "jose": "^6.2.16",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "ws": "^8.22.2"
+  }
+}

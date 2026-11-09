@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": ["node"],
+    "paths": {
+      "@ui": ["./packages/ui/src/index.ts"],
+      "@ui/*": ["./packages/ui/src/*"],
+      "@contracts": ["./packages/contracts/src/index.ts"],
+      "@contracts/*": ["./packages/contracts/src/*"],
+      "@kit": ["./packages/server-kit/src/index.ts"],
+      "@kit/*": ["./packages/server-kit/src/*"]
+    }
+  },
+  "include": ["packages", "projects", "tools", "scripts", "types.d.ts", "*.ts", "*.mjs"]
+}

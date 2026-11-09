@@ -1,0 +1,142 @@
+.ds {
+  min-height: 100vh;
+  background: var(--surface);
+}
+
+.ds__top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 24px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.ds__title {
+  font-weight: 700;
+  font-size: 14px;
+  padding-left: 14px;
+  border-left: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+
+.ds__body {
+  padding-top: 32px;
+  padding-bottom: 80px;
+}
+
+.ds__section {
+  margin-top: 48px;
+}
+
+.ds-colors {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ds-color {
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px;
+  background: var(--paper);
+}
+
+.ds-color__chip {
+  height: 56px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.ds-color__name {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ds-color__value {
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+
+.ds-color__role {
+  font-size: 11px;
+  color: var(--ink-faint);
+}
+
+.ds-type {
+  display: grid;
+  gap: 18px;
+}
+
+.ds-type__row {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.ds-type__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ds-type__meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.ds-type__row .display {
+  line-height: 1;
+}
+
+.ds-spacing {
+  display: grid;
+  gap: 10px;
+}
+
+.ds-spacing__row {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.ds-spacing__bar {
+  height: 12px;
+  background: var(--moex-red);
+  border-radius: 2px;
+  min-width: 4px;
+}
+
+.ds-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ds-code {
+  background: #121214;
+  color: #e8e8ec;
+  padding: 14px;
+  border-radius: var(--radius);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow: auto;
+  margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .ds-colors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
