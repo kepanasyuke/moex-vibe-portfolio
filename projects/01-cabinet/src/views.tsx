@@ -15,8 +15,8 @@ import {
   ProgressBar,
   Segmented,
   Select,
+  Skeleton,
   Sparkline,
-  Spinner,
   StepMark,
   Stat,
   Table,
@@ -31,6 +31,7 @@ import {
   useLoginForm,
   useNotificationsView,
   useOperationsView,
+  useOverviewView,
   useProfileScreen,
   useTradingScreen,
 } from "./hooks.ts";
@@ -86,8 +87,10 @@ export const AsyncBlock = <T,>({
       {state.error}
     </Alert>
   ) : state.status === "loading" || !state.data ? (
-    <div className="center">
-      <Spinner />
+    <div className="stack">
+      <Skeleton height={96} />
+      <Skeleton height={180} />
+      <Skeleton height={120} />
     </div>
   ) : (
     <>{children(state.data)}</>
@@ -396,10 +399,10 @@ const Profile = ({
 };
 
 const Overview = ({ token }: { token: string }) => {
-  const dashboard = useDashboard(token);
+  const view = useOverviewView(token);
 
   return (
-    <AsyncBlock state={dashboard}>
+    <AsyncBlock state={view.dashboard}>
       {(data) => (
         <>
           <PageHeader
@@ -407,9 +410,19 @@ const Overview = ({ token }: { token: string }) => {
             title="Обзор портфеля"
             subtitle={`Данные на ${formatDateTime(data.updatedAt)}`}
             actions={
-              <Button variant="ghost" size="sm" onClick={dashboard.reload}>
-                Обновить
-              </Button>
+              <div className="row">
+                <Tabs
+                  items={[
+                    { value: "7", label: "7 дней" },
+                    { value: "30", label: "30 дней" },
+                  ]}
+                  value={view.period.tab}
+                  onChange={view.period.setTab}
+                />
+                <Button variant="ghost" size="sm" onClick={view.dashboard.reload}>
+                  Обновить
+                </Button>
+              </div>
             }
           />
           <div className="grid-4">
@@ -444,13 +457,13 @@ const Overview = ({ token }: { token: string }) => {
               }
             >
               <Sparkline
-                points={data.history.map((point) => point.value)}
+                points={data.history.slice(view.period.tab === "7" ? -7 : 0).map((point) => point.value)}
                 tone={data.totals.pnl >= 0 ? "up" : "down"}
                 height={150}
-                label="Динамика стоимости портфеля за 30 дней"
+                label={`Динамика стоимости портфеля за ${view.period.tab} дней`}
               />
               <div className="row-between" style={{ marginTop: 12 }}>
-                <span className="muted">30 дней</span>
+                <span className="muted">{view.period.tab} дней</span>
                 <span className="numeric">
                   {formatMoney(data.history[0]?.value ?? 0)} → {formatMoney(data.totals.value)}
                 </span>

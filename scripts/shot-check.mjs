@@ -1,0 +1,17 @@
+﻿import fs from "node:fs";
+import { chromium } from "playwright";
+const out = "C:/Users/Admin/Downloads/moex-ref/cab";
+fs.mkdirSync(out, { recursive: true });
+const browser = await chromium.launch({ channel: "msedge", headless: true });
+const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+await page.goto("http://localhost:5101/", { waitUntil: "networkidle" });
+await page.getByRole("button", { name: "Войти" }).click();
+await page.getByText("Обзор портфеля").waitFor();
+await page.waitForTimeout(600);
+await page.screenshot({ path: `${out}/overview.png` });
+await page.locator("aside button", { hasText: "Торговля" }).first().click();
+await page.getByText("Новая сделка").waitFor();
+await page.waitForTimeout(400);
+await page.screenshot({ path: `${out}/trading.png` });
+await browser.close();
+console.log("ok");

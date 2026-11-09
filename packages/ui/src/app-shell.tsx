@@ -7,6 +7,14 @@ export interface NavItem {
   hint?: string;
 }
 
+const initialsOf = (name: string): string =>
+  name
+    .split(" ")
+    .map((part) => part.charAt(0))
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
 export const AppShell = ({
   product,
   nav,
@@ -26,12 +34,19 @@ export const AppShell = ({
 }) => (
   <div className="shell">
     <header className="shell__top">
-      <Logo compact />
+      <a className="shell__brand" href="/" aria-label="Московская биржа">
+        <Logo compact />
+      </a>
+      <span className="shell__divider" />
       <span className="shell__product">{product}</span>
       <span className="grow" />
+      <span className="shell__demo">демо-стенд</span>
       <div className="shell__user">
-        <span className="shell__user-name">{user.name}</span>
-        <span className="shell__user-role">{user.role === "admin" ? "Администратор" : "Инвестор"}</span>
+        <span className="avatar">{initialsOf(user.name)}</span>
+        <span className="shell__user-text">
+          <span className="shell__user-name">{user.name}</span>
+          <span className="shell__user-role">{user.role === "admin" ? "Администратор" : "Инвестор"}</span>
+        </span>
       </div>
       <Button variant="ghost" size="sm" onClick={onLogout}>
         Выйти
@@ -39,6 +54,7 @@ export const AppShell = ({
     </header>
     <div className="shell__body">
       <aside className="shell__nav" aria-label="Разделы">
+        <div className="shell__nav-label">Разделы</div>
         {nav.map((item) => (
           <button
             key={item.key}
@@ -50,6 +66,7 @@ export const AppShell = ({
             {item.hint && <span className="shell__nav-hint">{item.hint}</span>}
           </button>
         ))}
+        <div className="shell__nav-foot">MOEX · учебный стенд</div>
       </aside>
       <main className="shell__main">{children}</main>
     </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import type { User } from "@contracts";
-import { useAsync } from "@ui";
+import { useAsync, useTabs } from "@ui";
 import { api } from "./api.ts";
 import type { OrderInput } from "./api.ts";
 import type { Session } from "./types.ts";
@@ -211,4 +211,11 @@ export const useProfileScreen = (token: string, user: User, onSaved: (next: User
       );
     },
   };
+};
+
+export const useOverviewView = (token: string) => {
+  const dashboard = useDashboard(token);
+  const period = useTabs<string>("30");
+
+  return { dashboard, period };
 };
